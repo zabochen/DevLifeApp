@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_graph"
+    app:startDestination="@id/newEntryFragment">
+
+    <fragment
+        android:id="@+id/hotEntryFragment"
+        android:name="ua.ck.zabochen.devlifeapp.ui.enties.hot.HotEntryFragment"
+        android:label="HotEntryFragment" />
+    <fragment
+        android:id="@+id/randomEntryFragment"
+        android:name="ua.ck.zabochen.devlifeapp.ui.enties.random.RandomEntryFragment"
+        android:label="RandomEntryFragment" />
+    <fragment
+        android:id="@+id/ratingEntryFragment"
+        android:name="ua.ck.zabochen.devlifeapp.ui.enties.rating.RatingEntryFragment"
+        android:label="RatingEntryFragment" />
+    <fragment
+        android:id="@+id/newEntryFragment"
+        android:name="ua.ck.zabochen.devlifeapp.ui.enties.new.NewEntryFragment"
+        android:label="NewEntryFragment" />
+</navigation>
