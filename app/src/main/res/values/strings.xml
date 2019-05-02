@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">DevLifeApp</string>
+
+    <!-- Bottom Navigation -->
+    <string name="menu_bottom_navigation_item_new">New</string>
+    <string name="menu_bottom_navigation_item_random">Random</string>
+    <string name="menu_bottom_navigation_item_hot">Hot</string>
+    <string name="menu_bottom_navigation_item_rating">Rating</string>
+
 </resources>

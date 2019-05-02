@@ -1,21 +1,36 @@
 package ua.ck.zabochen.devlifeapp.ui.main
 
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.appcompat.widget.Toolbar
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
+import butterknife.BindView
+import butterknife.ButterKnife
+import butterknife.Unbinder
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import org.jsoup.select.Elements
 import ua.ck.zabochen.devlifeapp.R
 import ua.ck.zabochen.devlifeapp.data.network.AppNetworkImpl
+import ua.ck.zabochen.devlifeapp.data.parser.AppParserImpl
 import ua.ck.zabochen.devlifeapp.ui.base.BaseActivity
 import java.io.IOException
 
 class MainActivity : BaseActivity(), AnkoLogger {
+
+    private lateinit var unbinder: Unbinder
+
+    @BindView(R.id.activityMain_toolbar)
+    lateinit var toolbar: Toolbar
+
+    @BindView(R.id.activityMain_bottomNavigation)
+    lateinit var bottomNavigation: BottomNavigationView
+
+    private lateinit var navigationController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,56 +38,32 @@ class MainActivity : BaseActivity(), AnkoLogger {
         networkRequest(0)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        if (this::unbinder.isInitialized) unbinder.unbind()
+    }
+
     private fun setUi() {
-        // Layout
+        // Layout & ButterKnife
         setContentView(R.layout.activity_main)
+        this.unbinder = ButterKnife.bind(this)
 
-        // Button
-        button.setOnClickListener {
-            networkRequest(1)
-        }
+        // Toolbar
+        setSupportActionBar(toolbar)
 
+        // Navigation
+        this.navigationController = Navigation.findNavController(this, R.id.activityMain_fragment_navigationHost)
+
+        // BottomNavigation
+        NavigationUI.setupWithNavController(bottomNavigation, navigationController)
     }
 
     private fun networkRequest(page: Int) = launch {
         try {
-            val asyncBody = async(Dispatchers.IO) { AppNetworkImpl().getLatestEntries(page) }
-            val body = asyncBody.await()
-
-            val document: Document = Jsoup.parse(body)
-
-            val entryList: Elements = document.select("div[class=entry]")
-
-            for (i in 0 until entryList.size) {
-                // Author
-                val author: String = entryList.select("div[class=comment]")
-                    .select("a")
-                    .eq(i)
-                    .text()
-                info { "Author: $author" }
-
-                // Description
-                val description: String = entryList.select("div[class=code]")
-                    .select("span[class=value]")
-                    .eq(i)
-                    .text()
-                info { "Description: $description" }
-
-                // Gif
-                val gifUrl: String = "https:" +
-                        entryList.select("div[class=image]")
-                            .select("div[class=image]")
-                            .select("div[class=gif]")
-                            .select("backup_img")
-                            .eq(i)
-                            .attr("src")
-                info { "Gif Url: $gifUrl" }
-            }
-
+            val asyncEntryList = async(Dispatchers.IO) { AppNetworkImpl(AppParserImpl()).getNewEntries(page) }
+            info { asyncEntryList.await().joinToString() }
         } catch (e: IOException) {
             info { e.printStackTrace() }
         }
     }
-
-
 }
