@@ -11,13 +11,16 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/activityMain_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="@color/toolbar_title" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="56dp">
 
         <fragment
             android:id="@+id/activityMain_fragment_navigationHost"
@@ -35,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
-        app:itemTextColor="@color/colorPrimary"
-        app:itemIconTint="@color/colorAccent"
+        app:itemIconTint="@color/bottomNavigation_itemIcon"
+        app:itemTextColor="@color/bottomNavigation_itemText"
         app:menu="@menu/menu_bottom_navigation" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

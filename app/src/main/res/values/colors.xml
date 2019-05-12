@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#FDFDFE</color>
+    <color name="colorPrimaryDark">#B9B9B9</color>
+    <color name="colorAccent">#EC4956</color>
+
+    <!-- Toolbar -->
+    <color name="toolbar_title">#161616</color>
+
+    <!-- Bottom Navigation -->
+    <color name="bottomNavigation_itemText">#161616</color>
+    <color name="bottomNavigation_itemIcon">#161616</color>
+
+    <!-- Entry -->
+    <color name="entry_author">#717171</color>
+    <color name="entry_date">#717171</color>
+    <color name="entry_description">#0C0C0C</color>
+
+    <!-- Divider -->
+    <color name="divider_background">#ECECEC</color>
+
 </resources>

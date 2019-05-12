@@ -21,11 +21,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
 
 dependencies {
@@ -39,10 +34,9 @@ dependencies {
     def anko_version = "0.10.8"
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
 
-    // ButterKnife
-    def butterknife_version = "10.1.0"
-    implementation "com.jakewharton:butterknife:$butterknife_version"
-    kapt "com.jakewharton:butterknife-compiler:$butterknife_version"
+    // CardView
+    def cardview_version = "1.0.0"
+    implementation "androidx.cardview:cardview:$cardview_version"
 
     // Coroutines
     def coroutines_version = "1.1.0"
